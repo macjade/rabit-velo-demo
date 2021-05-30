@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+{% block title %}: First VELO Pouch about{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="content-area">
+        <div class="pagehead-bg   primary-bg" >
+        </div>
+        <div class="container has-pagehead is-pagetitle">
+            <div class="section">
+                <h5 class="pagetitle">What is VELO</h5>
+            </div>
+        </div>
+
+        <div class="container over banner-carousel">
+            <div class="section">
+                <div class="spacer"></div>
+
+                <div class="carousel carousel-fullscreen carousel-slider home_carousel carousel-products-home">
+
+                    <a class="carousel-item" href="#carousel-slide-0!">
+                        <div class="bg" style="background-image: url({% static 'home/assets/images/product-2.png' %})"></div>
+                        <div class="item-content center-align white-text">
+                            <div class="spacer-large"></div>
+                            <h3>HELLO!</h3>
+                            <p class="light white-text">Welcome to your first five pouch experience with VELO! Our Pros will help you find out if VELO is for you.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="spacer"></div>
+                <div class="item-content center-align">
+                    <a href="#" class="waves-effect waves-light btn-large bg-primary">Let's Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

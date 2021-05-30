@@ -1,0 +1,72 @@
+{% extends 'home/base.html' %}
+{% block title %}: Scanner{% endblock %}
+
+{% load static %}
+
+{% block addcss %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="stylesheet" href="{% static 'home/assets/css/mystyles.css' %}" />
+{% endblock %}
+
+{% block addscriptheader %}
+    <script src="{% static 'home/assets/js/qr_packed.min.js' %}"></script>
+{% endblock %}
+
+{% block inlinestyle %}
+    background-color: #455A64;
+{% endblock %}
+
+{% block content %}
+
+    <div class="content-area">
+
+        <div class="pagehead-bg primary-bg" >
+        </div>
+
+        <div class="container has-pagehead is-pagetitle">
+            <div class="section">
+                <h5 class="pagetitle">Scan QR Code</h5>
+            </div>
+        </div>
+        <div class="container over scanner banner-carousel mb0">
+            <div class="section pb0" style="padding-top: 0px;">
+                <div id="container">
+
+                  <div id="btn-scan-qr">
+                    <img src="{% static 'home/assets/images/1499401426qr_icon.svg' %}">
+                  </div>
+
+                  <canvas hidden="" id="qr-canvas"></canvas>
+
+                  <div id="qr-result" hidden="">
+                    <b>Data:</b> <span id="outputData"></span>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal927994608" class="modal modal-mediabox{% if new_user %} default-open open{% endif %}" tabindex="0" style="z-index: 1003; display: none; opacity: 0; top: 4%; transform: scaleX(0.8) scaleY(0.8);">
+        <div class="modal-content profile-card">
+            <div class="ui-profile">
+                <div class="primg">
+                </div>
+                <div class="prinfo card-panel">
+                    <div class="prname">
+                        <h4 class="name">{{ request.user.get_full_name }}</h4>
+                        <div class="pos">Unique User ID: {{ request.user.userprofile_set.get.myid }}</div>
+                        <p>Your Dynamic User Link: <span>http://127.0.0.1:8000/me/{{ request.user.userprofile_set.get.myid }}/</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block addscript %}
+    {% if msg_error %}
+        <script>
+            M.toast({html: '{{ msg_error }}!', classes: ' red lighten-2 white-text'});
+        </script>
+    {% endif %}
+    <script src="{% static 'home/assets/js/qrCodeScanner.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'home/base.html' %}
+{% block title %}: Scanner{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="content-area">
+        <div class="pagehead-bg   primary-bg" >
+        </div>
+        <div class="container has-pagehead is-pagetitle">
+            <div class="section">
+                <h5 class="pagetitle">Prebuilt Apps</h5>
+            </div>
+        </div>
+
+        <div class="container over mb0 ui-apps">
+            <div class="section">
+                <div class="spacer"></div>
+                <div class="row settings-row " >
+                    <div class="col s12 ">
+                        <div class="setting-box  center  img-box ">
+                            <a class="img-wrap round" href="#">
+                                <img alt="image" class="responsive-img " src="data:image/png;base64,{{ barcode }}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

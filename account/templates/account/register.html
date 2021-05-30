@@ -1,0 +1,111 @@
+{% extends 'home/base.html' %}
+{% block title %}: Registration{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="content-area">
+        <div class="login-bg access-register" style="background-image: url({% static 'home/assets/images/full-3.png' %});"></div>
+        <form action="{% url 'account:register' %}" method="post">
+            {% csrf_token %}
+            <div class="container login-area register">
+                <div class="section pb0">
+                    <h3 class="bot-20 center white-text">Register</h3>
+                    <div class="row">
+                        <div class="input-field col s10 offset-s1">
+                            <input id="fname3" name="fname" type="text" class="validate" required>
+                            <label for="fname3">FirstName</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s10 offset-s1">
+                        <input id="lname3" name="lname" type="text" class="validate" required>
+                        <label for="lname3">LastName</label>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="input-field col s10 offset-s1">
+                        <input id="email3" type="email" name="email" class="validate" required>
+                        <label for="email3">Email</label>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="input-field col s10 offset-s1">
+                        <input id="dob" type="date" name="dob" class="validate" required>
+                        <label for="dob">Date of Birth</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s10 offset-s1">
+                        <input id="pass3" type="password" name="password" class="validate" required>
+                        <label for="pass3">Password</label>
+                    </div>
+                </div>
+
+                <div class="row center">
+                    <button type="submit" class="waves-effect waves-light btn-large bg-primary">Register</button>
+                    <div class="spacer"></div>
+                    <div class="links">
+                        <a href="{% url 'account:login' %}" >Already Registered? Login</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div><!--.content-area-->
+
+{% endblock %}
+
+{% block addscript %}
+    {% if msg_error %}
+        <script>
+            M.toast({html: '{{ msg_error }}!', classes: ' red lighten-2 white-text'});
+        </script>
+    {% endif %}
+    <script>
+        $(document).ready(function() {
+            $('input[name="dob"]').focusout(function () {
+                console.log($(this).val());
+                if ($(this).val() != "") {
+                    var dob = new Date($(this).val());
+                    var nowdate = new Date();
+
+                    var get_dob = nowdate.getFullYear() - dob.getFullYear();
+
+                    if (nowdate.getMonth() < dob.getMonth()) {
+                        get_dob--;
+                    }
+
+                    if (get_dob < 18) {
+                        M.toast({html: 'You Have to be upto 18 years of age to registers', classes: ' red lighten-2 white-text'});
+                    }
+                }
+            });
+
+            $('.content-area form').submit(function(e) {
+                e.preventDefault();
+                var dob = new Date($('input[name="dob"]').val());
+                var nowdate = new Date();
+
+                var get_dob = nowdate.getFullYear() - dob.getFullYear();
+
+                if (nowdate.getMonth() < dob.getMonth()) {
+                    get_dob--;
+                }
+
+                if (get_dob < 18) {
+                    M.toast({html: 'You Have to be upto 18 years of age to registers', classes: ' red lighten-2 white-text'});
+                }else {
+                    $(this).unbind('submit').submit();
+                }
+            });
+        });
+    </script>
+{% endblock %}

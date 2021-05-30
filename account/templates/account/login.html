@@ -1,0 +1,56 @@
+{% extends 'home/base.html' %}
+{% block title %}: Login{% endblock %}
+{% load static %}
+
+{% block content %}
+
+    <div class="content-area">
+
+        <div class="login-bg access-login" style="background-image: url({% static 'home/assets/images/full-2.png' %});"></div>
+
+        <div class="container login-area">
+            <form method="post" action="{% url 'account:login' %}">
+                {% csrf_token %}
+                <div class="section">
+
+                    <h3 class="bot-20 center white-text">Login</h3>
+
+                    <div class="row">
+
+                        <div class="input-field col s10 offset-s1">
+                            <input id="email311" type="email" name="email" class="validate" required>
+                            <label for="email311">Email</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="input-field col s10 offset-s1">
+                            <input id="pass311" type="password" name="password" class="validate" required>
+                            <label for="pass311">Password</label>
+                        </div>
+
+                    </div>
+
+                    <div class="row center">
+                        <button type="submit" class="waves-effect waves-light btn-large bg-primary">Login</button>
+                        <div class="spacer"></div>
+                        <div class="links">
+                            <a href="{% url 'account:register' %}" >Register</a>
+                        </div>
+                        <div class="spacer"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!--.content-area-->
+
+{% endblock %}
+
+{% block addscript %}
+    {% if msg_error %}
+        <script>
+            M.toast({html: '{{ msg_error }}!', classes: ' red lighten-2 white-text'});
+        </script>
+    {% endif %}
+{% endblock %}
