@@ -54,7 +54,7 @@
                     <div class="prname">
                         <h4 class="name">{{ request.user.get_full_name }}</h4>
                         <div class="pos">Unique User ID: {{ request.user.userprofile_set.get.myid }}</div>
-                        <p>Your Dynamic User Link: <span>http://127.0.0.1:8000/me/{{ request.user.userprofile_set.get.myid }}/</span></p>
+                        <p>Your Dynamic User Link: <span>https://rabit-velo.herokuapp.com/me/{{ request.user.userprofile_set.get.myid }}/</span></p>
                     </div>
                 </div>
             </div>
