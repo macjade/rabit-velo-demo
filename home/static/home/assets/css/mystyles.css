@@ -13,6 +13,7 @@
   margin: auto;
   width: calc(100% - 20px);
   max-width: 400px;
+  max-height: 350px;
 }
 
 #btn-scan-qr {

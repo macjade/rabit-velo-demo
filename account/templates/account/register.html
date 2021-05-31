@@ -6,7 +6,7 @@
 {% block content %}
 
     <div class="content-area">
-        <div class="login-bg access-register" style="background-image: url({% static 'home/assets/images/full-3.jpg' %});"></div>
+        <div class="login-bg access-register" style="background-image: url({% static 'home/assets/images/full-3.png' %});"></div>
         <form action="{% url 'account:register' %}" method="post">
             {% csrf_token %}
             <div class="container login-area register">
