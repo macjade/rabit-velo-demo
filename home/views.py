@@ -24,10 +24,10 @@ class VerifyUserId(generic.View):
                 logout(request)
 
             userprofile = UserProfile.objects.get(myid=get_id)
-            email = userprofile.user.email
+            username = userprofile.user.username
             password = base64.b64decode(str(userprofile.temppass).encode()).decode()
 
-            user = authenticate(username=email, password=password)
+            user = authenticate(username=username, password=password)
             request.session.set_expiry(0)
 
             login(self.request, user)

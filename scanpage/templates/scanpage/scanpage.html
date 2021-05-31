@@ -52,9 +52,9 @@
                 </div>
                 <div class="prinfo card-panel">
                     <div class="prname">
-                        <h4 class="name">{{ request.user.get_full_name }}</h4>
-                        <div class="pos">Unique User ID: {{ request.user.userprofile_set.get.myid }}</div>
+                        <h4 class="name">{{ request.user.username }}</h4>
                         <p>Your Dynamic User Link: <span>https://rabit-velo.herokuapp.com/me/{{ request.user.userprofile_set.get.myid }}/</span></p>
+                        <p style="padding: 5px 50px;">{% if new_user %}It's your first live experience with velo. {% endif %}To scan, kindly point your camera on the QR code and make sure that all four corners of the QR code are in view</p>
                     </div>
                 </div>
             </div>

@@ -20,15 +20,17 @@ class HomeView(generic.View):
         return render(request, 'account/register.html', context)
 
     def post(self, request):
-        firstname = request.POST['fname']
-        lastname = request.POST['lname']
-        email = request.POST['email']
+        firstname = 'Demo'
+        lastname = 'User'
+        username = request.POST['username']
+        email = username+'@velo.com'
         dob = request.POST['dob']
-        password = request.POST['password']
+        password = 'Pass12345'
 
-        new_user = Pwa().createnewuser(firstname, lastname, email, dob, password)
-        if new_user:
-            user = authenticate(username=email, password=password)
+        new_user = Pwa().createnewuser(firstname, lastname, username, email, dob, password)
+
+        if new_user['status']:
+            user = authenticate(username=username, password=password)
 
             if user is not None:
                 if not user.is_blocked:
@@ -44,7 +46,7 @@ class HomeView(generic.View):
                 request.session['msg_error'] = 'Unable to complete registration at the moment'
                 return redirect('account:register')
         else:
-            request.session['msg_error'] = 'Unable to complete registration at the moment'
+            request.session['msg_error'] = new_user['message'] #'Unable to complete registration at the moment'
             return redirect('account:register')
 
 class LoginView(generic.View):
@@ -62,11 +64,10 @@ class LoginView(generic.View):
 
     def post(self, request, **kwargs):
 
-        email = request.POST['email']
-        password = request.POST['password']
+        username = request.POST['username']#request.POST['email']
+        password = 'Pass12345'
 
-        user = authenticate(username=email, password=password)
-
+        user = authenticate(username=username, password=password)
         if user is not None:
             if not user.is_blocked:
                 request.session.set_expiry(0)

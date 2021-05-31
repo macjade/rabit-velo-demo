@@ -8,12 +8,9 @@ import base64
 
 class PwaManager(BaseUserManager):
 
-    def create_user(self, username, email, password=None, is_active=True, is_staff=False, is_admin=False):
+    def create_user(self, username, email=None, password=None, is_active=True, is_staff=False, is_admin=False):
         if not username:
             raise ValueError("User must have a username")
-
-        if not email:
-            raise ValueError("User must have an email address")
 
         if not password:
             raise ValueError("User must have a password")
@@ -30,7 +27,7 @@ class PwaManager(BaseUserManager):
 
         return user_obj
 
-    def create_staffuser(self, username, email, password=None):
+    def create_staffuser(self, username, email=None, password=None):
 
         user_staff = self.create_user(
             username=username,
@@ -41,7 +38,7 @@ class PwaManager(BaseUserManager):
 
         return user_staff
 
-    def create_superuser(self, username, email, password=None):
+    def create_superuser(self, username, email=None, password=None):
 
         user_admin = self.create_user(
             username=username,
@@ -58,16 +55,17 @@ class Pwa(AbstractBaseUser, PermissionsMixin):
     firstname = models.CharField(max_length=30)
     lastname = models.CharField(max_length=30)
     username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255)
     active = models.BooleanField(default=True)
     is_blocked = models.BooleanField(default=False)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
     date_of_joining = models.DateTimeField(default=timezone.now)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
 
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
+    #REQUIRED_FIELDS = ['username']
 
     objects = PwaManager()
 
@@ -98,15 +96,15 @@ class Pwa(AbstractBaseUser, PermissionsMixin):
     def is_active(self):
         return self.active
 
-    def createnewuser(self, firstname, lastname, email, dob, password):
+    def createnewuser(self, firstname, lastname, username, email, dob, password):
 
         new_user = self
-        check_user = self.find_user(email)
+        check_user = self.find_user(username)
         try:
             if not check_user:
                 new_user.firstname = firstname
                 new_user.lastname = lastname
-                new_user.username = firstname+lastname
+                new_user.username = username
                 new_user.email = email
                 new_user.set_password(password)
                 new_user.client = True
@@ -136,10 +134,10 @@ class Pwa(AbstractBaseUser, PermissionsMixin):
         else:
             return id
 
-    def find_user(self, email=None):
+    def find_user(self, username=None):
 
         find_user = self.__class__
-        check_user = find_user.objects.filter(email=email)
+        check_user = find_user.objects.filter(username=username)
         if check_user:
             return check_user
         else:
