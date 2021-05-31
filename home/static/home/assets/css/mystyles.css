@@ -12,6 +12,7 @@
 #qr-canvas {
   margin: auto;
   width: calc(100% - 20px);
+  height: calc(100% - 50px);
   max-width: 400px;
   max-height: 350px;
 }
